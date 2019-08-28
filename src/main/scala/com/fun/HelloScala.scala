@@ -301,5 +301,30 @@ lines.
 
   }
 
+  //提取器测试
+  /**
+    * 当一个类的实例后跟括号为零个或多个参数的列表时，编译器会调用该实例上的apply方法。 可以在对象和类中定义apply方法。
+    * 如上所述，unapply方法的目的是提取正在寻找的特定值。当使用match语句比较提取器对象时，将自动执行unapply方法。
+    * 尝试以下示例程序 -原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/scala/scala_extractors.html
+    */
+
+  object Demo {
+    def main(args: Array[String]) {
+      val x = Demo(5)
+      println(x)
+
+      x match {
+        case Demo(num) => println(x + " is bigger two times than " + num)
+
+        //unapply is invoked
+        case _ => println("i cannot calculate")
+      }
+    }
+
+    def apply(x: Int): Int = x * 2
+
+    def unapply(z: Int): Option[Int] = if (z % 2 == 0) Some(z / 2) else None
+  }
+
 
 }
